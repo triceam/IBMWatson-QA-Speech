@@ -1,0 +1,111 @@
+/* style.css
+ * This file provides css styles.
+ */
+.feedback {
+    text-decoration: none;
+    margin: 5px;
+}
+
+.feedbackDiv {
+    text-align: right;
+    color: #9E9E9E;
+    font-size: 12px;
+    float: right;
+}
+.confidenceDiv {
+    float: left;
+    text-align: right;
+    font-size: 12px;
+}
+
+#questionText {
+    
+    height:50px;
+}
+
+.listen {
+    background: #00b2ef;
+    background-image: url('/images/mic.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    height:50px;
+}
+
+.listen:hover {
+    background: #00a1de;
+    background-image: url('/images/mic.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    height:50px;
+}
+
+.stop {
+    background-color: red;
+    background-image: url('/images/mic.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    height:50px;
+}
+
+.stop:hover {
+    background: #DD0000;
+    background-image: url('/images/mic.png');
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.playing {
+    background-color: red;
+    background-image: url('/images/stop.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    height:50px;
+}
+
+.playing:hover {
+    background: #DD0000;
+    background-image: url('/images/stop.png');
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.playAnswer {
+    float:left;
+    margin-right: 10px;
+    background-color: #00b2ef;
+    background-image: url('/images/play.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    height:35px;
+    width:30px;
+}
+
+.playAnswer:hover {
+    background-color: #00a1de;
+    background-image: url('/images/play.png');
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.playAnswer:active {
+    background-color: red;
+    background-image: url('/images/play.png');
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+
+.playAnswer.playing {
+    background-color: red;
+    background-image: url('/images/stop.png');
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.playAnswer.playing:hover {
+    background: #DD0000;
+    background-image: url('/images/stop.png');
+    background-position: center;
+    background-repeat: no-repeat;
+}

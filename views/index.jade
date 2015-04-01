@@ -1,0 +1,105 @@
+//- index.jade
+extends ./layout.jade
+
+block row-content
+  div.row
+    div.col-lg-12
+        h2 Try the service
+        div.well
+          form#qaForm.form-horizontal(action='/ask',method='post')
+            div.row Type or speak a question related to healthcare.  
+              
+            fieldset
+              div.form-group.row
+                div.col-lg-10(style="margin-top:10px;")
+                  input#questionText.form-control(name="questionText",
+                    placeholder="Type or speak a question...",
+                    required="true", value='#{questionText ? questionText : ""}')
+                div.col-lg-2(style="margin-top:10px;")
+                  button.btn.btn-block#listen.listen(type='button') 
+                div.col-lg-12(style="margin-top:10px;")
+                  button.btn.btn-block(type='submit') Ask
+  div#audio
+                     
+  div.row#result
+    div.col-lg-12
+      if answers && answers.question
+        h2 Answers and Confidence
+        div.well
+          //- check if there are answers
+          if answers.question.evidencelist && answers.question.evidencelist.length > 0
+            each answer, index in answers.question.evidencelist
+              if index == 0
+                | <script> speech.speak("#{answer.text}"); </script>
+              else
+                | 
+              
+              div.form-group.row
+                div.col-lg-12
+                  p #{answer.text}
+                  div.confidenceDiv
+                    strong Confidence:
+                    |  #{Math.round(answer.value*100) + '%'}
+                    
+            
+            
+          else
+            div.col-lg-12 No answers for that question, try with another question
+      if error
+        h2 Output
+        div.well
+          div.form-group.row
+            div.col-lg-12
+          p(style="font-weight:bold;color:red;") Error: #{error}
+  div.row
+    div.col-lg-6 
+      h3 Need some ideas?
+      ul
+        li
+          a(href="javascript:search('What are symptoms of Parkinsons disease?', true)") What are symptoms of Parkinson's disease?
+        li
+          a(href="javascript:search('What is Machado-Joseph Disease?', true)") What is Machado-Joseph Disease?
+        li
+          a(href="javascript:search('What causes Wilson Disease?', true)") What causes Wilson Disease?
+        li
+          a(href="javascript:search('What is the treatment for Autoimmune Hepatitis?', true)") What is the treatment for Autoimmune Hepatitis?
+        li
+          a(href="javascript:search('Am I at risk of a stroke?', true)") Am I at risk of a stroke?
+        li
+          a(href="javascript:search('What can I expect before heart surgery?', true)") What can I expect before heart surgery?
+        li
+          a(href="javascript:search('What can I expect after a colonoscopy?', true)") What can I expect after a colonoscopy?
+        li
+          a(href="javascript:search('What are the benefits of taking aspirin daily?', true)") What are the benefits of taking aspirin daily?
+    div.col-lg-6 
+      h5 Conditional Questions
+        p
+          ul
+            li What is X?
+            li What causes X?
+            li What is the treatment for X?
+            li What are the symptoms of X?
+            li Am I at risk of X?
+      h5 Procedure Questions
+        p
+          ul
+            li What should I expect before X?
+            li What should I expect after X?
+      h5 General Health Questions
+        p
+          ul
+            li
+              a(href="javascript:search('What are the benefits of taking aspirin daily?', true)") What are the benefits of taking aspirin daily?
+            li
+              a(href="javascript:search('Why do I need to get shots?', true)") Why do I need to get shots?
+            li
+              a(href="javascript:search('How do I know if I have food poisoning?', true)") How do I know if I have food poisoning?
+      h5 Action-Related Questions
+        p 
+          ul
+            li
+              a(href="javascript:search('How can I quit smoking?', true)") How can I quit smoking?
+            li
+              a(href="javascript:search('What should I do if my child is obese?', true)") What should I do if my child is obese?
+            li
+              a(href="javascript:search('What can I do to get more calcium?', true)") What can I do to get more calcium?

@@ -1,0 +1,31 @@
+div.col-lg-12
+      if answers && answers.question
+        h2 Answers and Confidence
+        div.well.result
+          //- check if there are answers
+          if answers.question.evidencelist && answers.question.evidencelist.length > 0
+            each answer, index in answers.question.evidencelist
+              if index == 0
+                | <script> speakContent("0"); </script>
+              else
+                | 
+              
+              div.form-group.row
+                div.col-lg-12
+                  div 
+                    button.btn.playAnswer(type='button', id=index)
+                    p.response(id='response'+index) #{answer.text}
+                  div.confidenceDiv
+                    strong Confidence:
+                    |  #{Math.round(answer.value*100) + '%'}
+                    
+            
+            
+          else
+            div.col-lg-12 No answers for that question, try with another question
+      if error
+        h2 Output
+        div.well
+          div.form-group.row
+            div.col-lg-12
+          p(style="font-weight:bold;color:red;") Error: #{error}
