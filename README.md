@@ -15,7 +15,7 @@ This is an updated demo assembled for IBM QA service.  Original Demo available a
 www.tricedesigns.com/2014/11/26/ibm-watson-cognitive-computing-speech-apis/
 
 Additional details and video showing sample in action available at 
-http://www.tricedesigns.com/?p=4447
+http://www.tricedesigns.com/2015/04/01/ibm-watson-qa-speech-recognition-speech-synthesis-a-conversation-with-your-computer/
 
 
 ## Files
