@@ -14,7 +14,7 @@ block row-content
                     placeholder="Type or speak a question...",
                     required="true", value='#{questionText ? questionText : ""}')
                 div.col-lg-2.col-md-2.col-xs-3.ie-speak
-                  button.btn.btn-block.mic#listen.listen(type='button')
+                  button#listen.btn.btn-block.mic.listen(type='button')
                   div.arrow-box
                     p This browser doesn't provide a method to access the microphone.
                       |   Use Chrome or Firefox to speak questions.
@@ -23,32 +23,6 @@ block row-content
                   button.btn.btn-block(type='submit') Ask
   div.hidden#audio
   div.row#result
-    div.col-lg-12.col-xs-12
-      if answers && answers.question
-        h2 Answers and Confidence
-        div.well
-          //- check if there are answers
-          if answers.question.evidencelist && answers.question.evidencelist.length > 0
-            each answer, index in answers.question.evidencelist
-              if index == 0
-                | <script> speech.speak("#{answer.text}"); </script>
-              div.form-group.row
-                div.col-lg-12.col-xs-12.col-md-12
-                  p.answer-text #{answer.text}
-                  div.confidenceDiv
-                    strong Confidence:
-                    |  #{Math.round(answer.value*100) + '%'}
-
-
-
-          else
-              p No answers for that question, try with another question
-      if error
-        h2 Output
-        div.well
-          div.form-group.row
-            div.col-lg-12
-              p(style="font-weight:bold;color:red;") Error: #{error}
   div.row
     div.col-lg-6.col-md-6.col-xs-6
       h3 Need some ideas?

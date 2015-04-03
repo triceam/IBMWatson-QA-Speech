@@ -26,8 +26,16 @@ function search(query, submit) {
 }
 
 function speakContent(id) {
+  // IE and Safari not supported disabled Mic button
+  if ($('body').hasClass('ie') || $('body').hasClass('safari')) {
+    $('.play').prop('disabled', true);
+    $('.ie-speak .arrow-box').show();
+    return;
+  } else {
+    $('.ie-speak .arrow-box').hide();
+  }
 
-  $('.playAnswer').removeClass('playing');
+  $('.play').removeClass('playing');
   $('#' + id).addClass('playing');
 
   var element = $('#response' + id);
@@ -44,7 +52,7 @@ $('#qaForm').submit(function(e) {
     success: function(response) {
       $('#result').html(response);
 
-      $('#result').find('.playAnswer').click(function(event) {
+      $('#result').find('.play').click(function(event) {
         var target = $(event.target);
         if (target.hasClass('playing')) {
           target.removeClass('playing');
@@ -66,7 +74,7 @@ $('#listen').click(function(e) {
       break;
     case 'speaking':
       speech.stop();
-      $('.playAnswer').removeClass('playing');
+      $('.play').removeClass('playing');
       setButtonState('default');
       break;
     default:
@@ -101,13 +109,13 @@ function setButtonState(state) {
   }
 }
 
-$.ready(function() {
-  // IE and Safari not supported disabled Speak button
+$(document).ready(function() {
+  // IE and Safari not supported disabled Mic button
   if ($('body').hasClass('ie') || $('body').hasClass('safari')) {
-    $('#listen.listen').prop('disabled', true);
-  }
-$('#listen.listen').prop('disabled', true);
-  if ($('#listen.listen').prop('disabled')) {
+    $('#listen').prop('disabled', true);
     $('.ie-speak .arrow-box').show();
+  } else {
+    $('.ie-speak .arrow-box').hide();
   }
+
 })
