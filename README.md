@@ -1,5 +1,5 @@
 # IBMWatson-QA-Speech
-  Node.js application(built using IBM Bluemix) that uses IBM Watson services to...
+  Node.js application (built using IBM Bluemix) that uses IBM Watson services to answer health-related questions using a voice interface.
 
 
   Services being used:
@@ -7,9 +7,9 @@
    * [Watson Text to Speech](http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/text-to-speech.html)
    * [Watson Question and Answer](http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/speech-to-text.html)
 
-  Demo: https://watsonhealthqa.mybluemix.net/
+Demo: https://watsonhealthqa.mybluemix.net/
 
-  Give it a try! Click the button below to fork into IBM DevOps Services and deploy your own copy of this application on Bluemix.
+Give it a try! Click the button below to fork into IBM DevOps Services and deploy your own copy of this application on Bluemix.
 
 [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/germanattanasio/IBMWatson-QA-Speech)
 
