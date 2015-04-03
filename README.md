@@ -7,11 +7,11 @@
    * [Watson Text to Speech](http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/text-to-speech.html)
    * [Watson Question and Answer](http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/speech-to-text.html)
 
-Demo: https://watsonhealthqa.mybluemix.net/
+Demo: https://spoken-healthcare-qa.mybluemix.net/
 
 Give it a try! Click the button below to fork into IBM DevOps Services and deploy your own copy of this application on Bluemix.
 
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/germanattanasio/IBMWatson-QA-Speech)
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/germanattanasio/spoken-healthcare-qa)
 
 ## Browser requirements
   This requires *HTML5 Audio* tag and *getUserMedia* API. Mileage will vary if your browser does not support either one of these features. Most mobile browsers have issues with both of these.
