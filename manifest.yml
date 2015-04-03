@@ -1,0 +1,20 @@
+---
+declared-services:
+  question-and-answer-service:
+    label: question_and_answer
+    plan: question_and_answer_free_plan
+  text-to-speech-service:
+    label: text_to_speech
+    plan: free
+  speech-to-text-service:
+    label: speech_to_text
+    plan: free
+applications:
+- name: spoken-healthcare-qa
+  command: node app.js
+  path: .
+  memory: 256M
+  services:
+  - question-and-answer-service
+  - text-to-speech-service
+  - speech-to-text-service
