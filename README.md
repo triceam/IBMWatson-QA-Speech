@@ -1,4 +1,5 @@
 # IBMWatson-QA-Speech
+
 Demo application for for Node.js (built using IBM Bluemix) that leverages IBM Watson for Speech Synthesis, IBM Watson Speech Recognition, and the IBM Watson QA Service (for natural language processing).  
 
 You can interact with a live version of this application at:
@@ -10,31 +11,23 @@ You can see if your browser supports either of these features at:
 http://caniuse.com/#feat=stream
 http://caniuse.com/#feat=audio
 
-# Original Demo
-This is an updated demo assembled for IBM QA service.  Original Demo available at: 
-www.tricedesigns.com/2014/11/26/ibm-watson-cognitive-computing-speech-apis/
+Give it a try! Click the button below to fork into IBM DevOps Services and deploy your own copy of this application on Bluemix.
+
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/germanattanasio/IBMWatson-QA-Speech)
+
+## License
+
+  This sample code is licensed under Apache 2.0. Full license text is available in [LICENSE](LICENSE).
+
+## Contributing
+
+  See [CONTRIBUTING](CONTRIBUTING.md).
+
+## Open Source @ IBM
+  Find more open source projects on the [IBM Github Page](http://ibm.github.io/)
+
+## Original Demo
+This is an updated demo assembled for IBM QA service.  Original Demo available at: [ibm-watson-cognitive-computing-speech-apis](www.tricedesigns.com/2014/11/26/ibm-watson-cognitive-computing-speech-apis/)
 
 Additional details and video showing sample in action available at 
 http://www.tricedesigns.com/?p=4447
-
-
-## Files
-
-The Question Answer Node.js starter application has files as below:
-
-
-*   app.js
-
-    This file contains the server side JavaScript code for your application written using the Node.js API
-
-*   views/
-
-    This directory contains the views of the application. It is required by the express framework and jade template engine in this sample application.
-
-*   public/
-
-    This directory contains public resources of the application. It is required by the express framework in this sample application.
-
-*   package.json
-
-    This file is required by the Node.js environment. It specifies this Node.js project name, dependencies, and other configurations of your Node.js application.
