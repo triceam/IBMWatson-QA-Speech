@@ -1,78 +1,64 @@
-/*jshint node:true*/
+/**
+ * Copyright 2014 IBM Corp. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-// app.js
-// This file contains the server side JavaScript code for your application.
-// This sample application uses express as web application framework (http://expressjs.com/),
-// and jade as template engine (http://jade-lang.com/).
+'use strict';
 
 var express = require('express'),
-  app = express(),
-  server = require('http').createServer(app),
-  io = require('socket.io').listen(server),
-  fs = require('fs'),
-  bluemix = require('./config/bluemix'),
-  watson = require('watson-developer-cloud'),
-  extend = require('util')._extend,
-  UAparser = require('ua-parser-js');
+    app = express(),
+    server = require('http').createServer(app),
+    io = require('socket.io').listen(server),
+    fs = require('fs'),
+    bluemix = require('./config/bluemix'),
+    watson = require('watson-developer-cloud'),
+    extend = require('util')._extend,
+    UAparser = require('ua-parser-js'),
+    userAgentParser = new UAparser();
 
-// setup middleware
-app.use(express.errorHandler());
-app.use(express.urlencoded()); // to support URL-encoded bodies
-app.use(app.router);
-
-app.use(express.static(__dirname + '/public')); //setup static public directory
-app.set('view engine', 'jade');
-app.set('views', __dirname + '/views'); //optional since express defaults to CWD/views
-
-// There are many useful environment variables available in process.env.
-// VCAP_APPLICATION contains useful information about a deployed application.
-var appInfo = JSON.parse(process.env.VCAP_APPLICATION || "{}");
+// setup express
+require('./config/express')(app);
 
 
-// setup credentials - populate the url, username and password if you're running on a local node.js environment
-
-var QA_CREDENTIALS = extend({
-    "url": "https://gateway.watsonplatform.net/qagw/service",
-    "username": "<Watson QA Username>",
-    "password": "<Watson QA Password>",
+// Setup credentials - populate the url, username and password.
+// if you're running on a local node.js environment
+var QA_CREDENTIALS = {
+    username: '<username question-and-answer>',
+    password: '<password question-and-answer>',
     version: 'v1',
     dataset: 'healthcare'
-}, bluemix.getServiceCreds('question_and_answer')); 
+};
 
-var TTS_CREDENTIALS = extend({
-    "url": "https://stream.watsonplatform.net/text-to-speech-beta/api",
-    "username": "<Watson Text To Speech Username>",
-    "password": "<Watson Text To Speech Password>"
-}, bluemix.getServiceCreds('text_to_speech')); 
+var TTS_CREDENTIALS = {
+    username: '<username texto-to-speech>',
+    password: '<password texto-to-speech>',
+    version:'v1'
+};
 
-var STT_CREDENTIALS = extend({
-    "version":'v1',
-    "url": "https://stream.watsonplatform.net/speech-to-text-beta/api",
-    "username": "<Watson Speech To Text Username>",
-    "password": "<Watson Speech To Text Password>"
-}, bluemix.getServiceCreds('speech_to_text')); 
+var STT_CREDENTIALS = {
+    username: '<username speech-to-text>',
+    password: '<password speech-to-text>',
+    version:'v1'
+};
 
-
-
-
-// *****************************************************
-//setup watson services
-// *****************************************************
-
-var watson = require('watson-developer-cloud');
+// setup watson services
 var question_and_answer_healthcare = watson.question_and_answer(QA_CREDENTIALS);
 var speechToText = watson.speech_to_text(STT_CREDENTIALS);
-
+var textToSpeech = watson.text_to_speech(TTS_CREDENTIALS);
 
 // setup sockets
 require('./config/socket')(io, speechToText);
-
-
-
-
-// *****************************************************
-// setup url endpoints
-// *****************************************************
 
 // render index page
 app.get('/', function(req, res){
@@ -82,73 +68,41 @@ app.get('/', function(req, res){
 // Handle the form POST containing the question to ask Watson and reply with the answer
 app.post('/ask', function(req, res){
     question_and_answer_healthcare.ask({ text: req.body.questionText}, function (err, response) {
-        if (err)
+        if (err){
             console.log('error:', err);
-        else {
-          var response = extend({ 'answers': response[0] },req.body);
-          return res.render('response', response);
+            return res.status(err.code || 500).json(response);
+        } else {
+            var response = extend({ 'answers': response[0] }, req.body);
+            return res.render('response', response);
         }
     });
 });
-
 
 // Handle requests to synthesize speech from text
 app.get('/synthesize', function(req, res) {
+    var userAgent = userAgentParser.setUA(req.headers['user-agent']);
+    var extension = 'wav';
+    var accept ='audio/wav';
 
-    var parser = new UAparser();
-    var ua = req.headers['user-agent'];
-    ua = parser.setUA(ua);
-    var browserName = ua.getBrowser().name;
-    var os = ua.getOS().name;
-    
-    var extension = "wav";
-    var headers = { 'Accept': 'audio/wav' };
-    if (((browserName == 'Chrome' || browserName == 'Canary') & os != 'Android') || browserName == 'Opera' || browserName == 'Firefox' ) {
-        extension = "ogg";   
-        headers = { 'Accept': 'audio/ogg; codecs=opus' }
+    if (supportOgg(userAgent)) {
+        extension = 'ogg';
+        accept = 'audio/ogg; codecs=opus';
     }
-    
-    TTS_CREDENTIALS.version = "v1";
-    TTS_CREDENTIALS.headers = headers;
-    
-    var textToSpeech = watson.text_to_speech(TTS_CREDENTIALS);
-    var transcript = textToSpeech.synthesize(req.query);
-    
+
+    var transcript = textToSpeech.synthesize(extend({ accept: accept}, req.query));
     transcript.on('response', function(response) {
-        if (req.query.download ) {
-            response.headers['content-disposition'] = 'attachment; filename=transcript.' + extension;
-        }
-        else {
-            response.headers['content-disposition'] = 'inline; filename=transcript.' + extension;
-        }
+        response.headers['content-disposition'] = 'inline; filename=transcript.' + extension;
     });
-
     transcript.pipe(res);
+
 });
 
-
-
-// Handle audio stream processing for speech recognition
-app.post('/', function(req, res) {
-    var audio;
-
-    if(req.body.url && req.body.url.indexOf('audio/') === 0) {
-        // sample audio
-        audio = fs.createReadStream(__dirname + '/../public/' + req.body.url);
-    } else {
-        // malformed url
-        return res.status(500).json({ error: 'Malformed URL' });
-    }
-
-    speechToText.recognize({audio: audio, content_type: 'audio/l16; rate=44100'}, function(err, transcript){
-    if (err)
-        return res.status(500).json({ error: err });
-    else
-        return res.json(transcript);
-    });
-});
-
-
+// Return true if the User Agent support ogg files
+function supportOgg(userAgent) {
+    var browserName = userAgent.getBrowser().name;
+    var osName = userAgent.getOS().name;
+    return (((browserName == 'Chrome' || browserName == 'Canary') & osName != 'Android') || browserName == 'Opera' || browserName == 'Firefox');
+}
 
 // Start server
 var port = (process.env.VCAP_APP_PORT || 3000);

@@ -3,26 +3,27 @@ extends ./layout.jade
 
 block row-content
   div.row
-    div.col-lg-12
+    div.col-lg-12.col-lg-12.col-xs-12
         h2 Try the service
         div.well
           form#qaForm.form-horizontal(action='/ask',method='post')
-            div.row Type or speak a question related to healthcare.  
-              
             fieldset
               div.form-group.row
-                div.col-lg-10(style="margin-top:10px;")
+                div.col-lg-10.col-md-10.col-xs-9
                   input#questionText.form-control(name="questionText",
                     placeholder="Type or speak a question...",
                     required="true", value='#{questionText ? questionText : ""}')
-                div.col-lg-2(style="margin-top:10px;")
-                  button.btn.btn-block#listen.listen(type='button') 
-                div.col-lg-12(style="margin-top:10px;")
+                div.col-lg-2.col-md-2.col-xs-3.ie-speak
+                  button.btn.btn-block.mic#listen.listen(type='button')
+                  div.arrow-box
+                    p This browser doesn't provide a method to access the microphone.
+                      |   Use Chrome or Firefox to speak questions.
+              div.form-group.row
+                div.col-lg-2.col-md-2.col-xs-3.col-md-push-10.col-xs-push-9.col-lg-push-10
                   button.btn.btn-block(type='submit') Ask
-  div#audio
-                     
+  div.hidden#audio
   div.row#result
-    div.col-lg-12
+    div.col-lg-12.col-xs-12
       if answers && answers.question
         h2 Answers and Confidence
         div.well
@@ -31,28 +32,25 @@ block row-content
             each answer, index in answers.question.evidencelist
               if index == 0
                 | <script> speech.speak("#{answer.text}"); </script>
-              else
-                | 
-              
               div.form-group.row
-                div.col-lg-12
-                  p #{answer.text}
+                div.col-lg-12.col-xs-12.col-md-12
+                  p.answer-text #{answer.text}
                   div.confidenceDiv
                     strong Confidence:
                     |  #{Math.round(answer.value*100) + '%'}
-                    
-            
-            
+
+
+
           else
-            div.col-lg-12 No answers for that question, try with another question
+              p No answers for that question, try with another question
       if error
         h2 Output
         div.well
           div.form-group.row
             div.col-lg-12
-          p(style="font-weight:bold;color:red;") Error: #{error}
+              p(style="font-weight:bold;color:red;") Error: #{error}
   div.row
-    div.col-lg-6 
+    div.col-lg-6.col-md-6.col-xs-6
       h3 Need some ideas?
       ul
         li
@@ -71,7 +69,7 @@ block row-content
           a(href="javascript:search('What can I expect after a colonoscopy?', true)") What can I expect after a colonoscopy?
         li
           a(href="javascript:search('What are the benefits of taking aspirin daily?', true)") What are the benefits of taking aspirin daily?
-    div.col-lg-6 
+    div.col-lg-6.col-md-6.col-xs-6
       h5 Conditional Questions
         p
           ul
@@ -95,7 +93,7 @@ block row-content
             li
               a(href="javascript:search('How do I know if I have food poisoning?', true)") How do I know if I have food poisoning?
       h5 Action-Related Questions
-        p 
+        p
           ul
             li
               a(href="javascript:search('How can I quit smoking?', true)") How can I quit smoking?
