@@ -3,7 +3,7 @@ doctype html
 html(lang="en")
   head
     block title
-      title Question and Answer
+      title Watson Spoken Healthcare QA
 
     meta(charset="utf-8")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
@@ -16,53 +16,51 @@ html(lang="en")
     link(rel="stylesheet", href="/css/style.css")
     block extrahead
   body
-    div.container
-      div.header.row
-        div.col-lg-12
-          h2 Watson Spoken Healthcare QA
-          p The 
-            a(href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/question-answer.html") IBM Watson™ Question Answer (QA) service 
-            | provides an API
-            | that give you the power of the IBM Watson
-            | cognitive computing system. With this service,
-            | you can connect to Watson, pose questions in natural language, and receive responses
-            | that you can use within your application.  The 
-            a(href='http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/speech-to-text.html') IBM Watson Speech To Text 
-            | service transcribes spoken language to text with low latency, and the 
-            a(href='http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/text-to-speech.html') IBM Watson Text To Speech 
-            | synthesizes natural sounding speeach from text.
-          p In this sample, all three of these services have been hooked together to create a browser based system that enables the user ask questions in spoken language, Watson figures out the answer and speaks it back to the user.
-          p This demo is using the IBM Watson Healtcare QA service. 
-            | Ask any question about healthcare, and see what Watson has to say.
-            | Need an idea? Just click the microphone button and ask  
-            a(href="javascript:search('What are symptoms of Parkinsons disease?', true)") "What are symptoms of Parkinson's disease?"
-          p Learn more at 
-           a(href="http://www.tricedesigns.com/?p=4447") http://www.tricedesigns.com/?p=4447
-          p 
-            b This demo requires 
-             a(href="http://caniuse.com/#feat=stream") getUserMedia 
-             | for speech recognition and 
-             a(href="http://caniuse.com/#feat=audio") HTML5 audio 
-             | for playing sounds. Parts of this demo may
-             | not work if your browser does not support these features.
-    
-    div.container
-      block row-content
-      
-    div.container
-      div.header.row
-        div.col-lg-12
-          h3 Disclaimer
-          p The Watson API is incredibly powerful, but this sample is using the 
-            a(href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/qaapi/") sample public healthcare 
-            | data set, 
-            | which is only trained to answer 
-            a(href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/qaapi/#corpora") specific kinds of questions
-            | . Check this out to see what 
-            | a properly trained Watson instance can do for you. This demo requires getUserMedia 
-            | for speech recognition and HTML5 audio for playing sounds. Parts of this demo may
-            | not work if your browser does not support these features.
+    block body-content
+      div.container
+        div.row
+          div.col-lg-12
+            div.row.top-nav
+              div.col-lg-12
+                a.left(href='http://www.tricedesigns.com/?p=4447') Learn more about this demo
+                a.right(href='http://www.tricedesigns.com/about/') About
+                a.right.fork(href='https://github.com/germanattanasio/IBMWatson-QA-Speech') Fork
+            div.row.header(style='padding-bottom:0px;')
+              div.avatar.img-container.col-lg-2.col-md-2.visible-lg.visible-md
+                img(src='/images/watson.gif')
+              div.col-lg-10.col-md-10
+                h2 Watson Spoken Healthcare Question and Answer
+                p The 
+                  a(href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/question-answer.html") IBM Watson™ Question Answer (QA) service
+                  |  provides an API that give you the power of the IBM Watson cognitive computing system.
+                  |  With this service,
+                  | you can connect to Watson, pose questions in natural language, and receive responses
+                  | that you can use within your application.  The 
+                  a(href='http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/speech-to-text.html') IBM Watson Speech To Text
+                  |  service transcribes spoken language to text with low latency, and the 
+                  a(href='http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/text-to-speech.html') IBM Watson Text To Speech
+                  |  synthesizes natural sounding speeach from text.
+                p In this sample, all three of these services have been hooked together to create a browser based system that enables the user ask questions in spoken language, Watson figures out the answer and speaks it back to the user.
+      div.container
+        block row-content
+      div.container
+        div.header.row
+          div.col-lg-12
+            h3 Disclaimer
+            p The Watson API is incredibly powerful, but this sample is using the 
+              a(href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/qaapi/") sample public healthcare
+              |  data set, which is only trained to answer 
+              a(href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/qaapi/#corpora") specific kinds of questions
+              | . Check this out to see what a properly trained Watson instance can do for you. This demo requires getUserMedia 
+              | for speech recognition and HTML5 audio for playing sounds. Parts of this demo may
+              | not work if your browser does not support these features.
+    div.container.footer
+      div.row.text-center(style='margin:10px 0px 15px 0px;')
+        a(href="/tos") Terms of Use
+        |  | 
+        a(href="http://www.ibm.com/privacy/us/en/") Privacy Policy
     script(type='text/javascript', src="/js/css_browser_selector.js")
+    script(type='text/javascript', src="/js/browser-detector.js")
     script(type='text/javascript', src="/js/jquery-1.11.1.min.js")
     script(type='text/javascript', src='/js/speech-recognizer.js')
     script(type='text/javascript', src='/js/socket.io.js')
