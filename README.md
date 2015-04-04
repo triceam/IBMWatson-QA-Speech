@@ -32,6 +32,6 @@ See [CONTRIBUTING](CONTRIBUTING.md).
 Find more open source projects on the [IBM Github Page](http://ibm.github.io/)
 
 ## Original Demo
-This is an updated demo assembled for IBM QA service.  Original Demo available at: [ibm-watson-cognitive-computing-speech-apis](www.tricedesigns.com/2014/11/26/ibm-watson-cognitive-computing-speech-apis/)
+This is an updated demo assembled for IBM QA service.  Original Demo available at: [ibm-watson-cognitive-computing-speech-apis](http://www.tricedesigns.com/2014/11/26/ibm-watson-cognitive-computing-speech-apis/)
 
 Additional details and video showing sample in action available at [www.tricedesigns.com](http://www.tricedesigns.com/2015/04/01/ibm-watson-qa-speech-recognition-speech-synthesis-a-conversation-with-your-computer/)
