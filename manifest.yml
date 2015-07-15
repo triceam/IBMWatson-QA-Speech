@@ -5,16 +5,16 @@ declared-services:
     plan: question_and_answer_free_plan
   text-to-speech-service:
     label: text_to_speech
-    plan: free
+    plan: standard
   speech-to-text-service:
     label: speech_to_text
-    plan: free
+    plan: standard
 applications:
-- name: spoken-healthcare-qa
+- name: WatsonHealthQA
   command: node app.js
   path: .
-  memory: 256M
+  memory: 512M
   services:
-  - question-and-answer-service
-  - text-to-speech-service
-  - speech-to-text-service
+  - Question and Answer-3u
+  - WatsonHealthQA Text to Speech
+  - WatsonHealthQA Speech To Text

@@ -3,13 +3,14 @@
   "version": "0.1.5",
   "description": "A sample nodejs app for Bluemix that use the Question Answer service with the IBM Watson Speech services",
   "dependencies": {
-    "body-parser": "~1.10.0",
-    "errorhandler": "~1.3.2",
-    "express": "~4.11.1",
-    "jade": "~1.9.1",
-    "socket.io": "~1.3.5",
-    "ua-parser-js": "~0.7.3",
-    "watson-developer-cloud": "~0.9.8"
+    "body-parser": "^1.13.2",
+    "errorhandler": "~1.4.1",
+    "express": "~4.13.1",
+    "jade": "~1.11.0",
+    "multer": "~0.1.8",
+    "socket.io": "^1.3.6",
+    "ua-parser-js": "~0.7.7",
+    "watson-developer-cloud": "^0.9.24"
   },
   "engines": {
     "node": ">=0.10.36"
